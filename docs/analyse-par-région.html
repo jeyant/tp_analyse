@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Analyse par région | Analyse générale</title>
+  <meta name="description" content="TP avec Oswaldo" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Analyse par région | Analyse générale" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="TP avec Oswaldo" />
+  <meta name="github-repo" content="openscapes/series" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Analyse par région | Analyse générale" />
+  
+  <meta name="twitter:description" content="TP avec Oswaldo" />
+  
+
+<meta name="author" content="Yann" />
+
+
+<meta name="date" content="2022-06-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="analyse-mondiale.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/style.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/lesson.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">TP Projet</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Bienvenue</a></li>
+<li class="chapter" data-level="2" data-path="analyse-mondiale.html"><a href="analyse-mondiale.html"><i class="fa fa-check"></i><b>2</b> Analyse mondiale</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="analyse-mondiale.html"><a href="analyse-mondiale.html#population-mondiale"><i class="fa fa-check"></i><b>2.1</b> Population mondiale</a></li>
+<li class="chapter" data-level="2.2" data-path="analyse-mondiale.html"><a href="analyse-mondiale.html#récoltes"><i class="fa fa-check"></i><b>2.2</b> Récoltes</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="analyse-mondiale.html"><a href="analyse-mondiale.html#production-alimentaire"><i class="fa fa-check"></i><b>2.2.1</b> Production alimentaire</a></li>
+<li class="chapter" data-level="2.2.2" data-path="analyse-mondiale.html"><a href="analyse-mondiale.html#production-alimentaire-par-recolte"><i class="fa fa-check"></i><b>2.2.2</b> Production alimentaire par recolte</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="analyse-mondiale.html"><a href="analyse-mondiale.html#consommation-dénergie"><i class="fa fa-check"></i><b>2.3</b> Consommation d’énergie</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="analyse-mondiale.html"><a href="analyse-mondiale.html#consommation-par-source-dénergie"><i class="fa fa-check"></i><b>2.3.1</b> Consommation par source d’énergie</a></li>
+<li class="chapter" data-level="2.3.2" data-path="analyse-mondiale.html"><a href="analyse-mondiale.html#consommation-par-type-dénergie"><i class="fa fa-check"></i><b>2.3.2</b> Consommation par type d’énergie</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="analyse-par-région.html"><a href="analyse-par-région.html"><i class="fa fa-check"></i><b>3</b> Analyse par région</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="analyse-par-région.html"><a href="analyse-par-région.html#analyse-condensée-par-continent"><i class="fa fa-check"></i><b>3.1</b> Analyse condensée par continent</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="analyse-par-région.html"><a href="analyse-par-région.html#evolution-de-la-population-par-continent"><i class="fa fa-check"></i><b>3.1.1</b> Evolution de la population par continent</a></li>
+<li class="chapter" data-level="3.1.2" data-path="analyse-par-région.html"><a href="analyse-par-région.html#evolution-de-la-production-par-continent"><i class="fa fa-check"></i><b>3.1.2</b> Evolution de la production par continent</a></li>
+<li class="chapter" data-level="3.1.3" data-path="analyse-par-région.html"><a href="analyse-par-région.html#evolution-consommation-par-source-dénergie-par-continent"><i class="fa fa-check"></i><b>3.1.3</b> Evolution consommation par source d’énergie par continent</a></li>
+<li class="chapter" data-level="3.1.4" data-path="analyse-par-région.html"><a href="analyse-par-région.html#consommation-par-type-dénergie-et-continent"><i class="fa fa-check"></i><b>3.1.4</b> Consommation par type d’énergie et continent</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="analyse-par-région.html"><a href="analyse-par-région.html#afrique"><i class="fa fa-check"></i><b>3.2</b> Afrique</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="analyse-par-région.html"><a href="analyse-par-région.html#population"><i class="fa fa-check"></i><b>3.2.1</b> Population</a></li>
+<li class="chapter" data-level="3.2.2" data-path="analyse-par-région.html"><a href="analyse-par-région.html#production-alimentaire-1"><i class="fa fa-check"></i><b>3.2.2</b> Production alimentaire</a></li>
+<li class="chapter" data-level="3.2.3" data-path="analyse-par-région.html"><a href="analyse-par-région.html#production-alimentaire-par-recolte-1"><i class="fa fa-check"></i><b>3.2.3</b> Production alimentaire par recolte</a></li>
+<li class="chapter" data-level="3.2.4" data-path="analyse-par-région.html"><a href="analyse-par-région.html#consommation-par-source-dénergie-1"><i class="fa fa-check"></i><b>3.2.4</b> Consommation par source d’énergie</a></li>
+<li class="chapter" data-level="3.2.5" data-path="analyse-par-région.html"><a href="analyse-par-région.html#consommation-par-type-dénergie-1"><i class="fa fa-check"></i><b>3.2.5</b> Consommation par type d’énergie</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="analyse-par-région.html"><a href="analyse-par-région.html#amérique"><i class="fa fa-check"></i><b>3.3</b> Amérique</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="analyse-par-région.html"><a href="analyse-par-région.html#population-1"><i class="fa fa-check"></i><b>3.3.1</b> Population</a></li>
+<li class="chapter" data-level="3.3.2" data-path="analyse-par-région.html"><a href="analyse-par-région.html#production-alimentaire-2"><i class="fa fa-check"></i><b>3.3.2</b> Production alimentaire</a></li>
+<li class="chapter" data-level="3.3.3" data-path="analyse-par-région.html"><a href="analyse-par-région.html#production-alimentaire-par-recolte-2"><i class="fa fa-check"></i><b>3.3.3</b> Production alimentaire par recolte</a></li>
+<li class="chapter" data-level="3.3.4" data-path="analyse-par-région.html"><a href="analyse-par-région.html#consommation-par-source-dénergie-2"><i class="fa fa-check"></i><b>3.3.4</b> Consommation par source d’énergie</a></li>
+<li class="chapter" data-level="3.3.5" data-path="analyse-par-région.html"><a href="analyse-par-région.html#consommation-par-type-dénergie-2"><i class="fa fa-check"></i><b>3.3.5</b> Consommation par type d’énergie</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="analyse-par-région.html"><a href="analyse-par-région.html#asie"><i class="fa fa-check"></i><b>3.4</b> Asie</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="analyse-par-région.html"><a href="analyse-par-région.html#population-2"><i class="fa fa-check"></i><b>3.4.1</b> Population</a></li>
+<li class="chapter" data-level="3.4.2" data-path="analyse-par-région.html"><a href="analyse-par-région.html#production-alimentaire-3"><i class="fa fa-check"></i><b>3.4.2</b> Production alimentaire</a></li>
+<li class="chapter" data-level="3.4.3" data-path="analyse-par-région.html"><a href="analyse-par-région.html#production-alimentaire-par-recolte-3"><i class="fa fa-check"></i><b>3.4.3</b> Production alimentaire par recolte</a></li>
+<li class="chapter" data-level="3.4.4" data-path="analyse-par-région.html"><a href="analyse-par-région.html#consommation-par-source-dénergie-3"><i class="fa fa-check"></i><b>3.4.4</b> Consommation par source d’énergie</a></li>
+<li class="chapter" data-level="3.4.5" data-path="analyse-par-région.html"><a href="analyse-par-région.html#consommation-par-type-dénergie-3"><i class="fa fa-check"></i><b>3.4.5</b> Consommation par type d’énergie</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="analyse-par-région.html"><a href="analyse-par-région.html#europe"><i class="fa fa-check"></i><b>3.5</b> Europe</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="analyse-par-région.html"><a href="analyse-par-région.html#population-3"><i class="fa fa-check"></i><b>3.5.1</b> Population</a></li>
+<li class="chapter" data-level="3.5.2" data-path="analyse-par-région.html"><a href="analyse-par-région.html#production-alimentaire-4"><i class="fa fa-check"></i><b>3.5.2</b> Production alimentaire</a></li>
+<li class="chapter" data-level="3.5.3" data-path="analyse-par-région.html"><a href="analyse-par-région.html#production-alimentaire-par-recolte-4"><i class="fa fa-check"></i><b>3.5.3</b> Production alimentaire par recolte</a></li>
+<li class="chapter" data-level="3.5.4" data-path="analyse-par-région.html"><a href="analyse-par-région.html#consommation-par-source-dénergie-4"><i class="fa fa-check"></i><b>3.5.4</b> Consommation par source d’énergie</a></li>
+<li class="chapter" data-level="3.5.5" data-path="analyse-par-région.html"><a href="analyse-par-région.html#consommation-par-type-dénergie-4"><i class="fa fa-check"></i><b>3.5.5</b> Consommation par type d’énergie</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="analyse-par-région.html"><a href="analyse-par-région.html#océanie"><i class="fa fa-check"></i><b>3.6</b> Océanie</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="analyse-par-région.html"><a href="analyse-par-région.html#population-4"><i class="fa fa-check"></i><b>3.6.1</b> Population</a></li>
+<li class="chapter" data-level="3.6.2" data-path="analyse-par-région.html"><a href="analyse-par-région.html#production-alimentaire-5"><i class="fa fa-check"></i><b>3.6.2</b> Production alimentaire</a></li>
+<li class="chapter" data-level="3.6.3" data-path="analyse-par-région.html"><a href="analyse-par-région.html#production-alimentaire-par-recolte-5"><i class="fa fa-check"></i><b>3.6.3</b> Production alimentaire par recolte</a></li>
+<li class="chapter" data-level="3.6.4" data-path="analyse-par-région.html"><a href="analyse-par-région.html#consommation-par-source-dénergie-5"><i class="fa fa-check"></i><b>3.6.4</b> Consommation par source d’énergie</a></li>
+<li class="chapter" data-level="3.6.5" data-path="analyse-par-région.html"><a href="analyse-par-région.html#consommation-par-type-dénergie-5"><i class="fa fa-check"></i><b>3.6.5</b> Consommation par type d’énergie</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyse générale</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="analyse-par-région" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Analyse par région<a href="analyse-par-région.html#analyse-par-région" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="analyse-condensée-par-continent" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Analyse condensée par continent<a href="analyse-par-région.html#analyse-condensée-par-continent" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="evolution-de-la-population-par-continent" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Evolution de la population par continent<a href="analyse-par-région.html#evolution-de-la-population-par-continent" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/POPULATION_REGION-1.png" width="672" /></p>
+</div>
+<div id="evolution-de-la-production-par-continent" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Evolution de la production par continent<a href="analyse-par-région.html#evolution-de-la-production-par-continent" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/PRODUCTION_NOURRITURE_REGION-1.png" width="672" /></p>
+</div>
+<div id="evolution-consommation-par-source-dénergie-par-continent" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Evolution consommation par source d’énergie par continent<a href="analyse-par-région.html#evolution-consommation-par-source-dénergie-par-continent" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/CONSOMMATION_ENERGIE_SOURCE_REGION-1.png" width="672" /></p>
+</div>
+<div id="consommation-par-type-dénergie-et-continent" class="section level3 hasAnchor" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> Consommation par type d’énergie et continent<a href="analyse-par-région.html#consommation-par-type-dénergie-et-continent" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/CONSOMMATION_ENERGIE_TYPE_REGION-1.png" width="672" /></p>
+</div>
+</div>
+<div id="afrique" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Afrique<a href="analyse-par-région.html#afrique" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="population" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Population<a href="analyse-par-région.html#population" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/EVOLUTION_POPULATION_AFRIQUE-1.png" width="672" /></p>
+</div>
+<div id="production-alimentaire-1" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Production alimentaire<a href="analyse-par-région.html#production-alimentaire-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/PRODUCTION_ALIMENTAIRE_AFRIQUE-1.png" width="672" /></p>
+</div>
+<div id="production-alimentaire-par-recolte-1" class="section level3 hasAnchor" number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Production alimentaire par recolte<a href="analyse-par-région.html#production-alimentaire-par-recolte-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/PRODUCTION_ALIMENTAIRE_RECOLTE_AFRIQUE-1.png" width="672" /></p>
+</div>
+<div id="consommation-par-source-dénergie-1" class="section level3 hasAnchor" number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> Consommation par source d’énergie<a href="analyse-par-région.html#consommation-par-source-dénergie-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/CONSOMMATION_ENERGIE_SOURCE_AFRIQUE-1.png" width="672" /></p>
+</div>
+<div id="consommation-par-type-dénergie-1" class="section level3 hasAnchor" number="3.2.5">
+<h3><span class="header-section-number">3.2.5</span> Consommation par type d’énergie<a href="analyse-par-région.html#consommation-par-type-dénergie-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/CONSOMMATION_ENERGIE_TYPE_AFRIQUE-1.png" width="672" /></p>
+</div>
+</div>
+<div id="amérique" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Amérique<a href="analyse-par-région.html#amérique" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="population-1" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Population<a href="analyse-par-région.html#population-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/EVOLUTION_POPULATION_AMERIQUE-1.png" width="672" /></p>
+</div>
+<div id="production-alimentaire-2" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Production alimentaire<a href="analyse-par-région.html#production-alimentaire-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/PRODUCTION_ALIMENTAIRE_AMERIQUE-1.png" width="672" /></p>
+</div>
+<div id="production-alimentaire-par-recolte-2" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Production alimentaire par recolte<a href="analyse-par-région.html#production-alimentaire-par-recolte-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/PRODUCTION_ALIMENTAIRE_RECOLTE_AMERIQUE-1.png" width="672" /></p>
+</div>
+<div id="consommation-par-source-dénergie-2" class="section level3 hasAnchor" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> Consommation par source d’énergie<a href="analyse-par-région.html#consommation-par-source-dénergie-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/CONSOMMATION_ENERGIE_SOURCE_AMERIQUE-1.png" width="672" /></p>
+</div>
+<div id="consommation-par-type-dénergie-2" class="section level3 hasAnchor" number="3.3.5">
+<h3><span class="header-section-number">3.3.5</span> Consommation par type d’énergie<a href="analyse-par-région.html#consommation-par-type-dénergie-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/CONSOMMATION_ENERGIE_TYPE_AMERIQUE-1.png" width="672" /></p>
+</div>
+</div>
+<div id="asie" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Asie<a href="analyse-par-région.html#asie" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="population-2" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Population<a href="analyse-par-région.html#population-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/EVOLUTION_POPULATION_ASIE-1.png" width="672" /></p>
+</div>
+<div id="production-alimentaire-3" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Production alimentaire<a href="analyse-par-région.html#production-alimentaire-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/PRODUCTION_ALIMENTAIRE_ASIE-1.png" width="672" /></p>
+</div>
+<div id="production-alimentaire-par-recolte-3" class="section level3 hasAnchor" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Production alimentaire par recolte<a href="analyse-par-région.html#production-alimentaire-par-recolte-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/PRODUCTION_ALIMENTAIRE_RECOLTE_ASIE-1.png" width="672" /></p>
+</div>
+<div id="consommation-par-source-dénergie-3" class="section level3 hasAnchor" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> Consommation par source d’énergie<a href="analyse-par-région.html#consommation-par-source-dénergie-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/CONSOMMATION_ENERGIE_SOURCE_ASIE-1.png" width="672" /></p>
+</div>
+<div id="consommation-par-type-dénergie-3" class="section level3 hasAnchor" number="3.4.5">
+<h3><span class="header-section-number">3.4.5</span> Consommation par type d’énergie<a href="analyse-par-région.html#consommation-par-type-dénergie-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/CONSOMMATION_ENERGIE_TYPE_ASIE-1.png" width="672" /></p>
+</div>
+</div>
+<div id="europe" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Europe<a href="analyse-par-région.html#europe" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="population-3" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Population<a href="analyse-par-région.html#population-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/EVOLUTION_POPULATION_EUROPE-1.png" width="672" /></p>
+</div>
+<div id="production-alimentaire-4" class="section level3 hasAnchor" number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Production alimentaire<a href="analyse-par-région.html#production-alimentaire-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/PRODUCTION_ALIMENTAIRE_EUROPE-1.png" width="672" /></p>
+</div>
+<div id="production-alimentaire-par-recolte-4" class="section level3 hasAnchor" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> Production alimentaire par recolte<a href="analyse-par-région.html#production-alimentaire-par-recolte-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/PRODUCTION_ALIMENTAIRE_RECOLTE_EUROPE-1.png" width="672" /></p>
+</div>
+<div id="consommation-par-source-dénergie-4" class="section level3 hasAnchor" number="3.5.4">
+<h3><span class="header-section-number">3.5.4</span> Consommation par source d’énergie<a href="analyse-par-région.html#consommation-par-source-dénergie-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/CONSOMMATION_ENERGIE_SOURCE_EUROPE-1.png" width="672" /></p>
+</div>
+<div id="consommation-par-type-dénergie-4" class="section level3 hasAnchor" number="3.5.5">
+<h3><span class="header-section-number">3.5.5</span> Consommation par type d’énergie<a href="analyse-par-région.html#consommation-par-type-dénergie-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/CONSOMMATION_ENERGIE_TYPE_EUROPE-1.png" width="672" /></p>
+</div>
+</div>
+<div id="océanie" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Océanie<a href="analyse-par-région.html#océanie" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="population-4" class="section level3 hasAnchor" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> Population<a href="analyse-par-région.html#population-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/EVOLUTION_POPULATION_OCEAN-1.png" width="672" /></p>
+</div>
+<div id="production-alimentaire-5" class="section level3 hasAnchor" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> Production alimentaire<a href="analyse-par-région.html#production-alimentaire-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/PRODUCTION_ALIMENTAIRE_OCEAN-1.png" width="672" /></p>
+</div>
+<div id="production-alimentaire-par-recolte-5" class="section level3 hasAnchor" number="3.6.3">
+<h3><span class="header-section-number">3.6.3</span> Production alimentaire par recolte<a href="analyse-par-région.html#production-alimentaire-par-recolte-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/PRODUCTION_ALIMENTAIRE_RECOLTE_OCEAN-1.png" width="672" /></p>
+</div>
+<div id="consommation-par-source-dénergie-5" class="section level3 hasAnchor" number="3.6.4">
+<h3><span class="header-section-number">3.6.4</span> Consommation par source d’énergie<a href="analyse-par-région.html#consommation-par-source-dénergie-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/CONSOMMATION_ENERGIE_SOURCE_OCEAN-1.png" width="672" /></p>
+</div>
+<div id="consommation-par-type-dénergie-5" class="section level3 hasAnchor" number="3.6.5">
+<h3><span class="header-section-number">3.6.5</span> Consommation par type d’énergie<a href="analyse-par-région.html#consommation-par-type-dénergie-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="series_files/figure-html/CONSOMMATION_ENERGIE_TYPE_OCEAN-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="analyse-mondiale.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jules32/bookdown-tutorial/edit/master/dashboard_1.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["series.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

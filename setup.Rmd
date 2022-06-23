@@ -1,0 +1,33 @@
+# Connecter Bookdown à Github {#setup}
+
+## Démarche actualisée - 24-03-2022
+
+1. Aller sur votre compte GitHub : github.com/username
+2. Cliquer sur Repositories, puis sur le bouton vert "New" pour créer un nouveau repo
+3. Appelez ce nouveau repo "mon_livre" par exemple
+4. N'initalisez pas ce repo avec un README
+5. Cliquer sur le bouton vert "Create repository" — ce qui vous emmènera sur votre nouveau repo
+6. Cliquer sur le petit bouton "clone or download" et copier l'url, par exemple
+
+https://github.com/oswaldoforey/mon_livre.git
+
+### Installer l'onglet git dans RStudio
+
+7. Dans la console, taper usethis::use_git() et dire Yes aux deux demandes. Cela redémarre R et installer l'onglet git dans la fenêtre environnement.
+8. Cliquer ensuite dans l'onglet terminal de la fenêtre console pour ouvrir le terminal. 
+9. Taper git remote add suivi du nom que vous souhaitez donner à la connection suivi de l'uril github de votre repo copiée précedémment, soit quelque chose comme:
+git remote add mon_livre https://github.com/oswaldoforey/mon_livre.git 
+10. Taper ensuite git push --set-upstream mon_livre master
+11. Retourner sur github.com/username/"mon_livre" et rafraichir, les fichiers sont là! 
+12. Cliquer ensuite sur 'Settings' (la roue dentée en haut à droite sous Pin)
+13. Puis sur le coté gauche de la page trouver le menu 'Pages' et rentrer dedans
+14. Changer ensuite la Source pulldown de "None" à "master branch /docs folder"
+15. Cela devrait afficher le message "Your site is ready to be published at https://username.github.io/mon_livre/" — cliquer sur le lien, cela devrait vous emmener à la page de votre livre
+16. Si un readem s'est malgré tout créé et que la fusée en bas à droite du tableau de votre repo n'apparait pas, effacer le readme, etle bouton environnement en bas à droite de la page avec une fusée apparait
+17. cliquer dessus ça marche (il faut attendre un peu des fois et recharger la page)
+
+
+### Modifier son livre et mettre à jour en ligne
+
+Dans le projet du livre, vous pouvez rajouter des chapitres en ouvrant un nouveau rmarkdown et en le sauvegardant dans le dossier du projet. Pour l'ajouter au reste du livre, ouvrir le dossier _bookdown.yml et rajouter le nom du chapitre suivi de .Rmd dans les crochets de la section yaml rmd_files :[""]. Modifiez à l'envie les chapitres existants comme dans un rmarkdown.
+Lorsque vous avez finalisé votre travail, aller dans l'onglet Build et cliquer sur Build Book pour générer les fichiers html utilisé par github. Puis aller dans l'onglet Git, cliquer sur Commit et  dans la fenêtre qui s'ouvre sélectionner tous les dossiers dans la fenêtre en haut à gauche et metter dans la fenêtre en haut à droite la description des changements (c'est votre commit) et cliquer sur commit. Cliquer enfin sur push (la flèche verte), cela enverra les changements sur github.  

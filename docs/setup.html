@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Connecter Bookdown à Github | Bookdown template</title>
+  <meta name="description" content="TP avec Oswaldo" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Connecter Bookdown à Github | Bookdown template" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="TP avec Oswaldo" />
+  <meta name="github-repo" content="openscapes/series" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Connecter Bookdown à Github | Bookdown template" />
+  
+  <meta name="twitter:description" content="TP avec Oswaldo" />
+  
+
+<meta name="author" content="Yann" />
+
+
+<meta name="date" content="2022-06-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="chapitre-2.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="lib/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/style.css" type="text/css" />
+<link rel="stylesheet" href="lib/css/lesson.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Mini Bookdown Tutorial</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Bienvenue</a></li>
+<li class="chapter" data-level="2" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>2</b> Connecter Bookdown à Github</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="setup.html"><a href="setup.html#démarche-actualisée---24-03-2022"><i class="fa fa-check"></i><b>2.1</b> Démarche actualisée - 24-03-2022</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="setup.html"><a href="setup.html#installer-longlet-git-dans-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Installer l’onglet git dans RStudio</a></li>
+<li class="chapter" data-level="2.1.2" data-path="setup.html"><a href="setup.html#modifier-son-livre-et-mettre-à-jour-en-ligne"><i class="fa fa-check"></i><b>2.1.2</b> Modifier son livre et mettre à jour en ligne</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="chapitre-2.html"><a href="chapitre-2.html"><i class="fa fa-check"></i><b>3</b> Chapitre 2</a></li>
+<li class="chapter" data-level="4" data-path="chapitre-de-conclusion-de-la-formation.html"><a href="chapitre-de-conclusion-de-la-formation.html"><i class="fa fa-check"></i><b>4</b> Chapitre de conclusion de la formation</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Bookdown template</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="setup" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Connecter Bookdown à Github<a href="setup.html#setup" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="démarche-actualisée---24-03-2022" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Démarche actualisée - 24-03-2022<a href="setup.html#démarche-actualisée---24-03-2022" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Aller sur votre compte GitHub : github.com/username</li>
+<li>Cliquer sur Repositories, puis sur le bouton vert “New” pour créer un nouveau repo</li>
+<li>Appelez ce nouveau repo “mon_livre” par exemple</li>
+<li>N’initalisez pas ce repo avec un README</li>
+<li>Cliquer sur le bouton vert “Create repository” — ce qui vous emmènera sur votre nouveau repo</li>
+<li>Cliquer sur le petit bouton “clone or download” et copier l’url, par exemple</li>
+</ol>
+<p><a href="https://github.com/oswaldoforey/mon_livre.git" class="uri">https://github.com/oswaldoforey/mon_livre.git</a></p>
+<div id="installer-longlet-git-dans-rstudio" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Installer l’onglet git dans RStudio<a href="setup.html#installer-longlet-git-dans-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol start="7" style="list-style-type: decimal">
+<li>Dans la console, taper usethis::use_git() et dire Yes aux deux demandes. Cela redémarre R et installer l’onglet git dans la fenêtre environnement.</li>
+<li>Cliquer ensuite dans l’onglet terminal de la fenêtre console pour ouvrir le terminal.</li>
+<li>Taper git remote add suivi du nom que vous souhaitez donner à la connection suivi de l’uril github de votre repo copiée précedémment, soit quelque chose comme:
+git remote add mon_livre <a href="https://github.com/oswaldoforey/mon_livre.git" class="uri">https://github.com/oswaldoforey/mon_livre.git</a></li>
+<li>Taper ensuite git push –set-upstream mon_livre master</li>
+<li>Retourner sur github.com/username/“mon_livre” et rafraichir, les fichiers sont là!</li>
+<li>Cliquer ensuite sur ‘Settings’ (la roue dentée en haut à droite sous Pin)</li>
+<li>Puis sur le coté gauche de la page trouver le menu ‘Pages’ et rentrer dedans</li>
+<li>Changer ensuite la Source pulldown de “None” à “master branch /docs folder”</li>
+<li>Cela devrait afficher le message “Your site is ready to be published at <a href="https://username.github.io/mon_livre/" class="uri">https://username.github.io/mon_livre/</a>” — cliquer sur le lien, cela devrait vous emmener à la page de votre livre</li>
+<li>Si un readem s’est malgré tout créé et que la fusée en bas à droite du tableau de votre repo n’apparait pas, effacer le readme, etle bouton environnement en bas à droite de la page avec une fusée apparait</li>
+<li>cliquer dessus ça marche (il faut attendre un peu des fois et recharger la page)</li>
+</ol>
+</div>
+<div id="modifier-son-livre-et-mettre-à-jour-en-ligne" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Modifier son livre et mettre à jour en ligne<a href="setup.html#modifier-son-livre-et-mettre-à-jour-en-ligne" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Dans le projet du livre, vous pouvez rajouter des chapitres en ouvrant un nouveau rmarkdown et en le sauvegardant dans le dossier du projet. Pour l’ajouter au reste du livre, ouvrir le dossier _bookdown.yml et rajouter le nom du chapitre suivi de .Rmd dans les crochets de la section yaml rmd_files :[“”]. Modifiez à l’envie les chapitres existants comme dans un rmarkdown.
+Lorsque vous avez finalisé votre travail, aller dans l’onglet Build et cliquer sur Build Book pour générer les fichiers html utilisé par github. Puis aller dans l’onglet Git, cliquer sur Commit et dans la fenêtre qui s’ouvre sélectionner tous les dossiers dans la fenêtre en haut à gauche et metter dans la fenêtre en haut à droite la description des changements (c’est votre commit) et cliquer sur commit. Cliquer enfin sur push (la flèche verte), cela enverra les changements sur github.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chapitre-2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/jules32/bookdown-tutorial/edit/master/setup.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["series.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+---
+title: "TP projet "
+author: "Yann"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+# output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: openscapes/series
+description: "TP avec Oswaldo"
+---
+
+# Bienvenue
+
+Projet réalisé en semi-autonomie dans le cadre de la formation R avec Oswaldo.
+
+Sujet du TP:
+
+*Vous êtes analyste de données recruté-e par une association environnementaliste qui veut construire un plaidoyer sur la situation problématique de la raréfaction des ressources dans un contexte de changement climatique et d'augmentation de la population mondiale. A partir de données issues des instances intergouvernementales mondiales (UN et FAO) vous devez leur fournir des visuels, des données de synthèse et des outils pour leur campagne de sensibilisation.*

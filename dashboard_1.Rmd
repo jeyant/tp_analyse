@@ -1,0 +1,949 @@
+---
+title: "Analyse générale"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+library(flexdashboard)
+library(tidyverse)
+library(lubridate)
+library(tidyselect)
+
+setwd("~/Documents/formation/owaldo/Projet/bookdown/template")
+```
+
+```{r CHARGEMENT_DONNEES, echo=FALSE}
+
+code_pays<-read_delim("data/code_pays.csv")
+owid_energy<-read_delim("data/owid-energy-data__OWID.csv")
+production_recolte<-read_delim("data/Production_Crops_Livestock_E_All_Data.csv")
+wpp2019<-read_delim(
+  "data/WPP2019_estimates.csv",
+  locale=locale(decimal_mark=","),
+  na="...")
+
+```
+
+```{r NETTOYAGE_ET_SELECTION}
+
+owid_energy_clean<-owid_energy %>% 
+  select(iso_code, country, year, ends_with("consumption")) %>% 
+  rename_with(~ gsub('_consumption', '', .x))  %>% 
+  pivot_longer(
+    cols=4:16,
+    names_to = "type",
+    values_to="consommation")
+
+wpp2019_clean<-wpp2019 %>% 
+  mutate(across("1950":"2020", ~ .x *1000)) %>% 
+  pivot_longer(
+    cols="1950":"2020",
+    names_to = "annee",
+    values_to="population") %>% 
+  mutate(annee=as.integer(annee)) %>% 
+  rename(region="Region, subregion, country or area *")
+
+
+production_recolte_clean<-production_recolte %>% 
+  select(-ends_with("F")) %>% 
+  rename_with(~ gsub('Y', '', .x)) %>% 
+  pivot_longer(
+    cols=8:50,
+    names_to = "annee",
+    values_to="production"
+  ) %>% 
+  select(-c(8:24)) %>% 
+  filter(Element=="Production") %>% 
+  filter(str_detect(Item, "Total")) 
+
+
+production_recolte_pays_clean<-inner_join(production_recolte_clean,code_pays,by=c("Area"="name"))
+owid_energy_pays_clean<-inner_join(owid_energy_clean,code_pays,by=c("country"="name"))
+
+```
+
+
+# Analyse mondiale
+
+
+
+## Population mondiale
+
+```{r EVOLUTION_POPULATION}
+
+# Evolution de la population mondiale au globale
+population_mondiale<-wpp2019_clean %>%
+  filter(region== "WORLD")
+
+ggplot(population_mondiale) +
+  aes(x = annee, y=population)+
+  geom_point() + 
+  geom_line() +
+  labs(title = "Evolution de la population mondiale")
+```
+
+
+## Récoltes
+### Production alimentaire
+
+```{r PRODUCTION_ALIMENTAIRE_MONDIALE}
+  
+production_mondiale<-production_recolte_clean %>% 
+  filter(Area=="World") %>% 
+  group_by(annee) %>% 
+  
+  summarise(
+    somme_production=sum(production, na.rm = TRUE),  
+    moyenne_production=mean(production, na.rm = TRUE),
+    ecart_type_production=sd(production, na.rm = TRUE)
+    )
+
+ggplot(production_mondiale) +
+  aes(x =annee, y=somme_production)+
+  geom_col() +
+  labs(title = "Evolution de la production mondiale")+
+  theme(axis.text.x = element_text(angle = 90))
+
+```
+
+### Production alimentaire par recolte
+
+```{r PRODUCTION_ALIMENTAIRE_RECOLTE}
+
+production_pays_annee_recolte<-production_recolte_pays_clean %>% 
+  group_by(annee, Item) %>% 
+  summarise(
+    somme_production=sum(production, na.rm = TRUE),  
+    moyenne_production=mean(production, na.rm = TRUE),
+    ecart_type_production=sd(production, na.rm = TRUE)
+    )
+
+
+ggplot(
+  production_pays_annee_recolte) +
+  aes(x=annee, y=somme_production, fill=Item)+
+  geom_bar(stat = "identity")+
+  theme(axis.text.x = element_text(angle = 90))+
+  labs(title = "Evolution des récoltes")
+
+```
+
+
+## Consommation d'énergie
+### Consommation par source d'énergie 
+
+```{r CONSOMMATION_ENERGIE_SOURCE_MONDE}
+
+
+owid_energy_source<-owid_energy_clean %>% 
+  filter(country=="World") %>%
+  filter(
+    type!="primary_energy",
+    type!="fossil_fuel",
+    type!="low_carbon",
+    type!="renewables",
+    type!="other_renewable"
+  ) %>% 
+  group_by(year, type) %>% 
+  summarise(
+    somme_consommation=sum(consommation, na.rm = TRUE),  
+    moyenne_consommation=mean(consommation, na.rm = TRUE),
+    ecart_type_consommation=sd(consommation, na.rm = TRUE)
+    ) %>% 
+  filter(year>=1960)
+
+
+ggplot(owid_energy_source)+
+  aes(x = year, y= somme_consommation, fill=type)+
+  geom_area()+
+  labs(title = "Evolution de la consommation par source d'énergie")
+
+```
+
+### Consommation par type d'énergie 
+
+```{r CONSOMMATION_ENERGIE_TYPE_MONDE}
+
+owid_energy_type<-owid_energy_clean %>% 
+  filter(country=="World") %>% 
+  filter(
+    type=="fossil_fuel"|
+    type=="low_carbon"|
+    type=="renewables"|
+    type=="other_renewable"
+  ) %>% 
+  group_by(year, type) %>% 
+  summarise(
+    somme_consommation=sum(consommation, na.rm = TRUE),  
+    moyenne_consommation=mean(consommation, na.rm = TRUE),
+    ecart_type_consommation=sd(consommation, na.rm = TRUE)
+    ) %>% 
+  filter(year>=1960)
+
+ggplot(owid_energy_type)+
+  aes(x = year, y= somme_consommation, fill=type)+
+  geom_area()+
+  labs(
+    title = "Evolution de la consommation par type d'énergie",
+    )
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Analyse par région
+
+
+## Analyse condensée par continent
+
+
+### Evolution de la population par continent
+``` {r POPULATION_REGION}
+# Evolution de la population mondiale par region
+population_region<-wpp2019_clean %>%
+  filter(Type== "Region")
+
+ggplot(population_region) +
+  aes(x = annee, y=population, color=region)+
+  geom_point() + 
+  geom_line() +
+  labs(title = "Evolution de la population par région")
+
+
+```
+
+
+### Evolution de la production par continent
+``` {r PRODUCTION_NOURRITURE_REGION}
+production_region_annee<-production_recolte_pays_clean %>% 
+  group_by(region, annee) %>% 
+  summarise(
+    somme_production=sum(production, na.rm = TRUE),  
+    moyenne_production=mean(production, na.rm = TRUE),
+    ecart_type_production=sd(production, na.rm = TRUE)
+    )
+
+ggplot(
+  production_region_annee %>% 
+    arrange(desc(somme_production)) 
+  ) +
+  aes(x=annee, y=somme_production, fill=region)+
+  geom_bar(stat = "identity")+
+  labs(title = "Evolution recolte par région")+
+  theme(axis.text.x = element_text(angle = 90))
+
+
+```
+
+
+### Evolution consommation par source d'énergie par continent
+```{r CONSOMMATION_ENERGIE_SOURCE_REGION}
+
+
+owid_energy_source_region<-owid_energy_pays_clean %>% 
+  filter(country!="World") %>%
+  filter(
+    type!="primary_energy",
+    type!="fossil_fuel",
+    type!="low_carbon",
+    type!="renewables",
+    type!="other_renewable"
+  ) %>% 
+  group_by(year, type, region) %>% 
+  summarise(
+    somme_consommation=sum(consommation, na.rm = TRUE),  
+    moyenne_consommation=mean(consommation, na.rm = TRUE),
+    ecart_type_consommation=sd(consommation, na.rm = TRUE)
+    ) %>% 
+  filter(year>=1960)
+
+
+ggplot(owid_energy_source_region)+
+  aes(x = year, y= somme_consommation, fill=region)+
+  geom_area()+
+  facet_grid(~type, scales = "free_y")+
+  labs(title = "Evolution de la consommation par source d'énergie")
+
+```
+
+
+### Consommation par type d'énergie et continent
+```{r CONSOMMATION_ENERGIE_TYPE_REGION}
+
+owid_energy_type_region<-owid_energy_pays_clean %>% 
+  filter(country!="World") %>% 
+  filter(
+    type=="fossil_fuel"|
+    type=="low_carbon"|
+    type=="renewables"|
+    type=="other_renewable"
+  ) %>% 
+  group_by(year, type, region) %>% 
+  summarise(
+    somme_consommation=sum(consommation, na.rm = TRUE),  
+    moyenne_consommation=mean(consommation, na.rm = TRUE),
+    ecart_type_consommation=sd(consommation, na.rm = TRUE)
+    ) %>% 
+  filter(year>=1960)
+
+ggplot(owid_energy_type_region)+
+  aes(x = year, y= somme_consommation, fill=region)+
+  geom_area()+
+  facet_grid(~type, scales = "free_y")+
+  labs(title = "Evolution de la consommation par type d'énergie")
+
+```
+
+## Afrique
+
+### Population
+
+```{r EVOLUTION_POPULATION_AFRIQUE}
+
+population_mondiale<-wpp2019_clean %>%
+  filter(region== "Africa")
+
+ggplot(population_mondiale) +
+  aes(x = annee, y=population)+
+  geom_point() + 
+  geom_line() +
+  labs(title = "Evolution de la population Afriquaine")
+```
+
+
+### Production alimentaire
+
+```{r PRODUCTION_ALIMENTAIRE_AFRIQUE}
+  
+production_mondiale<-production_recolte_pays_clean %>% 
+  filter(region=="Africa") %>% 
+  group_by(annee) %>% 
+  
+  summarise(
+    somme_production=sum(production, na.rm = TRUE),  
+    moyenne_production=mean(production, na.rm = TRUE),
+    ecart_type_production=sd(production, na.rm = TRUE)
+    )
+
+ggplot(production_mondiale) +
+  aes(x =annee, y=somme_production)+
+  geom_col() +
+  labs(title = "Evolution de la production afriquaine")+
+  theme(axis.text.x = element_text(angle = 90))
+
+```
+
+### Production alimentaire par recolte
+
+```{r PRODUCTION_ALIMENTAIRE_RECOLTE_AFRIQUE}
+
+production_pays_annee_recolte<-production_recolte_pays_clean %>% 
+  filter(region=="Africa") %>% 
+  group_by(annee, Item) %>% 
+  summarise(
+    somme_production=sum(production, na.rm = TRUE),  
+    moyenne_production=mean(production, na.rm = TRUE),
+    ecart_type_production=sd(production, na.rm = TRUE)
+    )
+
+
+ggplot(
+  production_pays_annee_recolte) +
+  aes(x=annee, y=somme_production, fill=Item)+
+  geom_bar(stat = "identity")+
+  theme(axis.text.x = element_text(angle = 90))+
+  labs(title = "Evolution des récoltes afriquaine")
+
+```
+
+### Consommation par source d'énergie 
+
+```{r CONSOMMATION_ENERGIE_SOURCE_AFRIQUE}
+
+
+owid_energy_source<-owid_energy_pays_clean %>% 
+  filter(region=="Africa") %>%
+  filter(
+    type!="primary_energy",
+    type!="fossil_fuel",
+    type!="low_carbon",
+    type!="renewables",
+    type!="other_renewable"
+  ) %>% 
+  group_by(year, type) %>% 
+  summarise(
+    somme_consommation=sum(consommation, na.rm = TRUE),  
+    moyenne_consommation=mean(consommation, na.rm = TRUE),
+    ecart_type_consommation=sd(consommation, na.rm = TRUE)
+    ) %>% 
+  filter(year>=1960)
+
+
+ggplot(owid_energy_source)+
+  aes(x = year, y= somme_consommation, fill=type)+
+  geom_area()+
+  labs(title = "Evolution de la consommation par source d'énergie afriquaine")
+
+```
+
+### Consommation par type d'énergie 
+
+```{r CONSOMMATION_ENERGIE_TYPE_AFRIQUE}
+
+owid_energy_type<-owid_energy_pays_clean %>% 
+  filter(region=="Africa") %>% 
+  filter(
+    type=="fossil_fuel"|
+    type=="low_carbon"|
+    type=="renewables"|
+    type=="other_renewable"
+  ) %>% 
+  group_by(year, type) %>% 
+  summarise(
+    somme_consommation=sum(consommation, na.rm = TRUE),  
+    moyenne_consommation=mean(consommation, na.rm = TRUE),
+    ecart_type_consommation=sd(consommation, na.rm = TRUE)
+    ) %>% 
+  filter(year>=1960)
+
+ggplot(owid_energy_type)+
+  aes(x = year, y= somme_consommation, fill=type)+
+  geom_area()+
+  labs(
+    title = "Evolution de la consommation par type d'énergie afriquaine",
+    )
+
+```
+
+## Amérique
+
+
+### Population
+
+```{r EVOLUTION_POPULATION_AMERIQUE}
+
+population_mondiale<-wpp2019_clean %>%
+  filter(region== "Latin America and the Caribbean")
+
+ggplot(population_mondiale) +
+  aes(x = annee, y=population)+
+  geom_point() + 
+  geom_line() +
+  labs(title = "Evolution de la population Amériquaine")
+```
+
+
+### Production alimentaire
+
+```{r PRODUCTION_ALIMENTAIRE_AMERIQUE}
+  
+production_mondiale<-production_recolte_pays_clean %>% 
+  filter(region=="Americas") %>% 
+  group_by(annee) %>% 
+  
+  summarise(
+    somme_production=sum(production, na.rm = TRUE),  
+    moyenne_production=mean(production, na.rm = TRUE),
+    ecart_type_production=sd(production, na.rm = TRUE)
+    )
+
+ggplot(production_mondiale) +
+  aes(x =annee, y=somme_production)+
+  geom_col() +
+  labs(title = "Evolution de la production amériquaine")+
+  theme(axis.text.x = element_text(angle = 90))
+
+```
+
+### Production alimentaire par recolte
+
+```{r PRODUCTION_ALIMENTAIRE_RECOLTE_AMERIQUE}
+
+production_pays_annee_recolte<-production_recolte_pays_clean %>% 
+  filter(region=="Americas") %>% 
+  group_by(annee, Item) %>% 
+  summarise(
+    somme_production=sum(production, na.rm = TRUE),  
+    moyenne_production=mean(production, na.rm = TRUE),
+    ecart_type_production=sd(production, na.rm = TRUE)
+    )
+
+
+ggplot(
+  production_pays_annee_recolte) +
+  aes(x=annee, y=somme_production, fill=Item)+
+  geom_bar(stat = "identity")+
+  theme(axis.text.x = element_text(angle = 90))+
+  labs(title = "Evolution des récoltes amériquaine")
+
+```
+
+
+### Consommation par source d'énergie 
+
+```{r CONSOMMATION_ENERGIE_SOURCE_AMERIQUE}
+
+
+owid_energy_source<-owid_energy_pays_clean %>% 
+  filter(region=="Americas") %>%
+  filter(
+    type!="primary_energy",
+    type!="fossil_fuel",
+    type!="low_carbon",
+    type!="renewables",
+    type!="other_renewable"
+  ) %>% 
+  group_by(year, type) %>% 
+  summarise(
+    somme_consommation=sum(consommation, na.rm = TRUE),  
+    moyenne_consommation=mean(consommation, na.rm = TRUE),
+    ecart_type_consommation=sd(consommation, na.rm = TRUE)
+    ) %>% 
+  filter(year>=1960)
+
+
+ggplot(owid_energy_source)+
+  aes(x = year, y= somme_consommation, fill=type)+
+  geom_area()+
+  labs(title = "Evolution de la consommation par source d'énergie amériquaine")
+
+```
+
+### Consommation par type d'énergie 
+
+```{r CONSOMMATION_ENERGIE_TYPE_AMERIQUE}
+
+owid_energy_type<-owid_energy_pays_clean %>% 
+  filter(region=="Americas") %>% 
+  filter(
+    type=="fossil_fuel"|
+    type=="low_carbon"|
+    type=="renewables"|
+    type=="other_renewable"
+  ) %>% 
+  group_by(year, type) %>% 
+  summarise(
+    somme_consommation=sum(consommation, na.rm = TRUE),  
+    moyenne_consommation=mean(consommation, na.rm = TRUE),
+    ecart_type_consommation=sd(consommation, na.rm = TRUE)
+    ) %>% 
+  filter(year>=1960)
+
+ggplot(owid_energy_type)+
+  aes(x = year, y= somme_consommation, fill=type)+
+  geom_area()+
+  labs(
+    title = "Evolution de la consommation par type d'énergie amériquaine",
+    )
+
+```
+
+## Asie
+
+
+### Population
+
+```{r EVOLUTION_POPULATION_ASIE}
+
+population_mondiale<-wpp2019_clean %>%
+  filter(region== "Asia")
+
+ggplot(population_mondiale) +
+  aes(x = annee, y=population)+
+  geom_point() + 
+  geom_line() +
+  labs(title = "Evolution de la population Asiatique")
+```
+
+
+### Production alimentaire
+
+```{r PRODUCTION_ALIMENTAIRE_ASIE}
+  
+production_mondiale<-production_recolte_pays_clean %>% 
+  filter(region=="Asia") %>% 
+  group_by(annee) %>% 
+  
+  summarise(
+    somme_production=sum(production, na.rm = TRUE),  
+    moyenne_production=mean(production, na.rm = TRUE),
+    ecart_type_production=sd(production, na.rm = TRUE)
+    )
+
+ggplot(production_mondiale) +
+  aes(x =annee, y=somme_production)+
+  geom_col() +
+  labs(title = "Evolution de la production asiatique")+
+  theme(axis.text.x = element_text(angle = 90))
+
+```
+
+### Production alimentaire par recolte
+
+```{r PRODUCTION_ALIMENTAIRE_RECOLTE_ASIE}
+
+production_pays_annee_recolte<-production_recolte_pays_clean %>% 
+  filter(region=="Asia") %>% 
+  group_by(annee, Item) %>% 
+  summarise(
+    somme_production=sum(production, na.rm = TRUE),  
+    moyenne_production=mean(production, na.rm = TRUE),
+    ecart_type_production=sd(production, na.rm = TRUE)
+    )
+
+
+ggplot(
+  production_pays_annee_recolte) +
+  aes(x=annee, y=somme_production, fill=Item)+
+  geom_bar(stat = "identity")+
+  theme(axis.text.x = element_text(angle = 90))+
+  labs(title = "Evolution des récoltes asiatique")
+
+```
+
+
+### Consommation par source d'énergie 
+
+```{r CONSOMMATION_ENERGIE_SOURCE_ASIE}
+
+
+owid_energy_source<-owid_energy_pays_clean %>% 
+  filter(region=="Asia") %>%
+  filter(
+    type!="primary_energy",
+    type!="fossil_fuel",
+    type!="low_carbon",
+    type!="renewables",
+    type!="other_renewable"
+  ) %>% 
+  group_by(year, type) %>% 
+  summarise(
+    somme_consommation=sum(consommation, na.rm = TRUE),  
+    moyenne_consommation=mean(consommation, na.rm = TRUE),
+    ecart_type_consommation=sd(consommation, na.rm = TRUE)
+    ) %>% 
+  filter(year>=1960)
+
+
+ggplot(owid_energy_source)+
+  aes(x = year, y= somme_consommation, fill=type)+
+  geom_area()+
+  labs(title = "Evolution de la consommation par source d'énergie asiatique")
+
+```
+
+### Consommation par type d'énergie 
+
+```{r CONSOMMATION_ENERGIE_TYPE_ASIE}
+
+owid_energy_type<-owid_energy_pays_clean %>% 
+  filter(region=="Asia") %>% 
+  filter(
+    type=="fossil_fuel"|
+    type=="low_carbon"|
+    type=="renewables"|
+    type=="other_renewable"
+  ) %>% 
+  group_by(year, type) %>% 
+  summarise(
+    somme_consommation=sum(consommation, na.rm = TRUE),  
+    moyenne_consommation=mean(consommation, na.rm = TRUE),
+    ecart_type_consommation=sd(consommation, na.rm = TRUE)
+    ) %>% 
+  filter(year>=1960)
+
+ggplot(owid_energy_type)+
+  aes(x = year, y= somme_consommation, fill=type)+
+  geom_area()+
+  labs(
+    title = "Evolution de la consommation par type d'énergie Asiatique",
+    )
+
+```
+
+## Europe
+
+
+### Population
+
+```{r EVOLUTION_POPULATION_EUROPE}
+
+population_mondiale<-wpp2019_clean %>%
+  filter(region== "Europe")
+
+ggplot(population_mondiale) +
+  aes(x = annee, y=population)+
+  geom_point() + 
+  geom_line() +
+  labs(title = "Evolution de la population Européenne")
+```
+
+
+### Production alimentaire
+
+```{r PRODUCTION_ALIMENTAIRE_EUROPE}
+  
+production_mondiale<-production_recolte_pays_clean %>% 
+  filter(region=="Europe") %>% 
+  group_by(annee) %>% 
+  
+  summarise(
+    somme_production=sum(production, na.rm = TRUE),  
+    moyenne_production=mean(production, na.rm = TRUE),
+    ecart_type_production=sd(production, na.rm = TRUE)
+    )
+
+ggplot(production_mondiale) +
+  aes(x =annee, y=somme_production)+
+  geom_col() +
+  labs(title = "Evolution de la production européenne")+
+  theme(axis.text.x = element_text(angle = 90))
+
+```
+
+### Production alimentaire par recolte
+
+```{r PRODUCTION_ALIMENTAIRE_RECOLTE_EUROPE}
+
+production_pays_annee_recolte<-production_recolte_pays_clean %>% 
+  filter(region=="Europe") %>% 
+  group_by(annee, Item) %>% 
+  summarise(
+    somme_production=sum(production, na.rm = TRUE),  
+    moyenne_production=mean(production, na.rm = TRUE),
+    ecart_type_production=sd(production, na.rm = TRUE)
+    )
+
+
+ggplot(
+  production_pays_annee_recolte) +
+  aes(x=annee, y=somme_production, fill=Item)+
+  geom_bar(stat = "identity")+
+  theme(axis.text.x = element_text(angle = 90))+
+  labs(title = "Evolution des récoltes européenne")
+
+```
+
+
+### Consommation par source d'énergie 
+
+```{r CONSOMMATION_ENERGIE_SOURCE_EUROPE}
+
+
+owid_energy_source<-owid_energy_pays_clean %>% 
+  filter(region=="Europe") %>%
+  filter(
+    type!="primary_energy",
+    type!="fossil_fuel",
+    type!="low_carbon",
+    type!="renewables",
+    type!="other_renewable"
+  ) %>% 
+  group_by(year, type) %>% 
+  summarise(
+    somme_consommation=sum(consommation, na.rm = TRUE),  
+    moyenne_consommation=mean(consommation, na.rm = TRUE),
+    ecart_type_consommation=sd(consommation, na.rm = TRUE)
+    ) %>% 
+  filter(year>=1960)
+
+
+ggplot(owid_energy_source)+
+  aes(x = year, y= somme_consommation, fill=type)+
+  geom_area()+
+  labs(title = "Evolution de la consommation par source d'énergie européenne")
+
+```
+
+### Consommation par type d'énergie 
+
+```{r CONSOMMATION_ENERGIE_TYPE_EUROPE}
+
+owid_energy_type<-owid_energy_pays_clean %>% 
+  filter(region=="Asia") %>% 
+  filter(
+    type=="fossil_fuel"|
+    type=="low_carbon"|
+    type=="renewables"|
+    type=="other_renewable"
+  ) %>% 
+  group_by(year, type) %>% 
+  summarise(
+    somme_consommation=sum(consommation, na.rm = TRUE),  
+    moyenne_consommation=mean(consommation, na.rm = TRUE),
+    ecart_type_consommation=sd(consommation, na.rm = TRUE)
+    ) %>% 
+  filter(year>=1960)
+
+ggplot(owid_energy_type)+
+  aes(x = year, y= somme_consommation, fill=type)+
+  geom_area()+
+  labs(
+    title = "Evolution de la consommation par type d'énergie européenne",
+    )
+
+```
+
+
+## Océanie
+
+
+### Population
+
+```{r EVOLUTION_POPULATION_OCEAN}
+
+population_mondiale<-wpp2019_clean %>%
+  filter(region== "Oceania")
+
+ggplot(population_mondiale) +
+  aes(x = annee, y=population)+
+  geom_point() + 
+  geom_line() +
+  labs(title = "Evolution de la population océanienne")
+```
+
+
+### Production alimentaire
+
+```{r PRODUCTION_ALIMENTAIRE_OCEAN}
+  
+production_mondiale<-production_recolte_pays_clean %>% 
+  filter(region=="Oceania") %>% 
+  group_by(annee) %>% 
+  
+  summarise(
+    somme_production=sum(production, na.rm = TRUE),  
+    moyenne_production=mean(production, na.rm = TRUE),
+    ecart_type_production=sd(production, na.rm = TRUE)
+    )
+
+ggplot(production_mondiale) +
+  aes(x =annee, y=somme_production)+
+  geom_col() +
+  labs(title = "Evolution de la production oceanienne")+
+  theme(axis.text.x = element_text(angle = 90))
+
+```
+
+### Production alimentaire par recolte
+
+```{r PRODUCTION_ALIMENTAIRE_RECOLTE_OCEAN}
+
+production_pays_annee_recolte<-production_recolte_pays_clean %>% 
+  filter(region=="Oceania") %>% 
+  group_by(annee, Item) %>% 
+  summarise(
+    somme_production=sum(production, na.rm = TRUE),  
+    moyenne_production=mean(production, na.rm = TRUE),
+    ecart_type_production=sd(production, na.rm = TRUE)
+    )
+
+
+ggplot(
+  production_pays_annee_recolte) +
+  aes(x=annee, y=somme_production, fill=Item)+
+  geom_bar(stat = "identity")+
+  theme(axis.text.x = element_text(angle = 90))+
+  labs(title = "Evolution des récoltes océanienne")
+
+```
+
+
+### Consommation par source d'énergie 
+
+```{r CONSOMMATION_ENERGIE_SOURCE_OCEAN}
+
+
+owid_energy_source<-owid_energy_pays_clean %>% 
+  filter(region=="Oceania") %>%
+  filter(
+    type!="primary_energy",
+    type!="fossil_fuel",
+    type!="low_carbon",
+    type!="renewables",
+    type!="other_renewable"
+  ) %>% 
+  group_by(year, type) %>% 
+  summarise(
+    somme_consommation=sum(consommation, na.rm = TRUE),  
+    moyenne_consommation=mean(consommation, na.rm = TRUE),
+    ecart_type_consommation=sd(consommation, na.rm = TRUE)
+    ) %>% 
+  filter(year>=1960)
+
+
+ggplot(owid_energy_source)+
+  aes(x = year, y= somme_consommation, fill=type)+
+  geom_area()+
+  labs(title = "Evolution de la consommation par source d'énergie océanienne")
+
+```
+
+### Consommation par type d'énergie 
+
+```{r CONSOMMATION_ENERGIE_TYPE_OCEAN}
+
+owid_energy_type<-owid_energy_pays_clean %>% 
+  filter(region=="Oceania") %>% 
+  filter(
+    type=="fossil_fuel"|
+    type=="low_carbon"|
+    type=="renewables"|
+    type=="other_renewable"
+  ) %>% 
+  group_by(year, type) %>% 
+  summarise(
+    somme_consommation=sum(consommation, na.rm = TRUE),  
+    moyenne_consommation=mean(consommation, na.rm = TRUE),
+    ecart_type_consommation=sd(consommation, na.rm = TRUE)
+    ) %>% 
+  filter(year>=1960)
+
+ggplot(owid_energy_type)+
+  aes(x = year, y= somme_consommation, fill=type)+
+  geom_area()+
+  labs(
+    title = "Evolution de la consommation par type d'énergie européenne",
+    )
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
