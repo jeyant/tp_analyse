@@ -1,6 +1,0 @@
-
-
-# Chapitre de conclusion de la formation
-
-J'aime bien R, mais je préfère Python.
-

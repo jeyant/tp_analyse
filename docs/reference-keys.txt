@@ -43,3 +43,4 @@ production-alimentaire-5
 production-alimentaire-par-recolte-5
 consommation-par-source-dénergie-5
 consommation-par-type-dénergie-5
+application-shiny

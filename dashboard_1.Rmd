@@ -928,6 +928,12 @@ ggplot(owid_energy_type)+
 ```
 
 
+# Application Shiny
+
+```{r}
+knitr::include_app("https://cefim2022.shinyapps.io/dashboard_app2/")
+
+```
 
 
 
