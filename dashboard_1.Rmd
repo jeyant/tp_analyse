@@ -927,6 +927,88 @@ ggplot(owid_energy_type)+
 
 ```
 
+# Cartes
+
+## Consommation énergie dans le monde
+```{r}
+
+library(sf)
+library(maps)
+library(countrycode)
+
+world2<-map_data("world") %>% 
+  mutate(iso_code2=countrycode(region, origin = "country.name", destination = "iso3c")) 
+
+owid_energy_pays_clean<-owid_energy_pays_clean %>% 
+  filter(year=="2016") %>% 
+  filter(
+    type=="primary_energy"
+  ) %>% 
+  drop_na(iso_code)
+
+
+data_energy<-inner_join(x=owid_energy_pays_clean, y=world2, by=c("iso_code"="iso_code2"))
+
+ggplot(data_energy) + 
+  aes(x=long, y=lat, group=group, fill=consommation)+
+  geom_polygon()+
+  labs(title = "Répartion de la consommation énergie dans le monde")
+
+```
+
+
+## Population dans le monde
+```{r}
+
+library(sf)
+library(maps)
+library(countrycode)
+
+world2<-map_data("world") %>% 
+  mutate(iso_code2=countrycode(region, origin = "country.name", destination = "iso3c")) 
+
+
+population<-wpp2019_clean %>% 
+  filter(annee=="2016") %>% 
+  filter(
+    Type=="Country/Area"
+  )
+
+
+population_world<-full_join(x=population, y=world2, by=c("region"="region"))
+
+ggplot(population_world) + 
+  aes(x=long, y=lat, group=group, fill=population)+
+  geom_polygon()+
+  labs(title = "Répartition de la population dans le monde")
+
+```
+
+
+## Recolte dans le monde
+```{r}
+
+library(sf)
+library(maps)
+library(countrycode)
+
+world2<-map_data("world") %>% 
+  mutate(iso_code2=countrycode(region, origin = "country.name", destination = "iso3c")) %>% 
+  mutate(group2=group)
+
+
+recolte<-production_recolte_clean %>% 
+  filter(annee=="2003") 
+
+recolte_world<-full_join(x=recolte, y=world2, by=c("Area Code"="group"))
+
+ggplot(recolte_world) + 
+  aes(x=long, y=lat, group=group2, fill=production)+
+  geom_polygon()+
+  labs(title = "Répartition des récoltes dans le monde")
+
+
+```
 
 # Application Shiny
 
